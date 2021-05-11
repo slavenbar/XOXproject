@@ -21,3 +21,31 @@ def display_instruct():
         Поехали!!!\n"""
     )
 display_instruct()
+
+#Функция задаёт вопрос,на который нужно ответить да или нет
+def ask_yes_no(question):
+    """Отвечать надо - да или нет"""
+    response = None
+    while response not in("y", "n"):
+        response = input(question).lower()
+    return response
+#Фунция запрашивает число с диапазона
+def ask_number(question,low,high):
+    """Просит ввести число из диапазона"""
+    response = None
+    while response not in range(low,high):
+        response = int(input(question))
+    return response
+#Функция спрашивает чей ход первый
+def pieces():
+    """Определяет принадлежность первого хода"""
+    go_first = ask_yes_no("Хочешь оставить за собой первый ход? :(y/n)")
+    if go_first == "y":
+        print("Человек ходит первым крестиками")
+        human = X
+        computer = O
+    else:
+        print("Компьютер ходит первым крестиками")
+        computer = X
+        human = O
+    return computer,human
