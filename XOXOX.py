@@ -104,6 +104,58 @@ def human_move(board,human):
             return move
 
 #Функция принимает доску и тип фишек компьютера
+def computer_move(board, computer, human):
+    """Ход компьютера"""
+    #Создадим рабочую копию доски
+    board = board[:]
+    #Поля от лучшего к худшему
+    BEST_MOVES = (4,0,2,6,8,1,3,5,7)
+    print("Я выберу поле номер", end=" ")
+
+    #Создаём список доступных ходов
+    for move in legal_moves(board):
+        board[move] = computer
+        #Если победит компьютер выберем этот ход
+        if winner(board) == computer:
+            print(move)
+            return move
+        board[move] = EMPTY
+
+    for move in legal_moves(board):
+        board[move] = human
+        #Если победит компьютер выберем этот ход
+        if winner(board) == human:
+            print(move)
+            return move
+        board[move] = EMPTY
+    #Если никто не может победить-выберем лучшее поле
+    for move in BEST_MOVES:
+        if move in legal_moves(board):
+            print(move)
+            return move
+
+#Функция принимает тип фишки,который был сделан последний
+def next_turn(turn):
+    """Осуществляет переход хода"""
+    if turn == X:
+        return O
+    else:
+        return X
+
+#Функция принимает фишки победителя Х,O,TIE(ничья)
+def congrat_winner(the_winner, computer, human):
+    """Поздравляет победителя игры"""
+    if the_winner != TIE:
+        print("Три", the_winner, "в ряд!\n")
+    else:
+        print("Ничья\n")
+    if the_winner == computer:
+        print("Победил компьютер!!!\n")
+    elif the_winner == human:
+        print("Победил человек!!!\n")
+    elif the_winner == TIE:
+        print("Ничья!!!\n")
+
 
 
 
