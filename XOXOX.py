@@ -1,6 +1,6 @@
 #Крестики-Нолики
 X = "X"
-O = "O"
+O = "0"
 EMPTY = " " #Пустое поле
 TIE = "Ничья"
 NUM_SQUARES = 9 #Количество клеток на поле
@@ -20,7 +20,7 @@ def display_instruct():
         
         Поехали!!!\n"""
     )
-display_instruct()
+#display_instruct()
 
 #Функция (ask_yes_no) задаёт вопрос,на который нужно ответить да или нет
 def ask_yes_no(question):
@@ -34,7 +34,7 @@ def ask_yes_no(question):
 def ask_number(question,low,high):
     """Просит ввести число из диапазона"""
     response = None
-    while response not in range(low,high):
+    while response not in range(low, high):
         response = int(input(question))
     return response
 
@@ -156,6 +156,27 @@ def congrat_winner(the_winner, computer, human):
     elif the_winner == TIE:
         print("Ничья!!!\n")
 
+#Запуск программы
+def main():
+    display_instruct()
+    computer,human = pieces()
+    turn = X
+    board = new_board()
+    display_board(board)
+    while not winner(board):
+        if turn == human:
+            move = human_move(board, human)
+            board[move] = human
+        else:
+            move = computer_move(board, computer, human)
+            board[move] = computer
+        display_board(board)
+        turn = next_turn(turn)
+    the_winner = winner(board)
+    congrat_winner(the_winner, computer, human)
 
+#Запуск программы
+main()
+input("\nНажмите Enter, чтобы выйти. ")
 
 
