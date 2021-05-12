@@ -40,7 +40,7 @@ def ask_number(question,low,high):
 #Функция (pieces) спрашивает чей ход первый
 def pieces():
     """Определяет принадлежность первого хода"""
-    go_first = ask_yes_no("Хочешь оставить за собой первый ход? :(y/n)")
+    go_first = ask_yes_no("Хочешь оставить за собой первый ход? Ответ y/n : ")
     if go_first == "y":
         print("Человек ходит первым крестиками")
         human = X
@@ -157,11 +157,11 @@ def main():
     display_board(board)
     while not winner(board):
         if turn == human:
-            move = human_move(board, human)
-            board[move] = human
+            move1 = human_move(board, human)
+            board[move1] = human
         else:
-            move = computer_move(board, computer, human)
-            board[move] = computer
+            move2 = computer_move(board, computer, human)
+            board[move2] = computer
         display_board(board)
         turn = next_turn(turn)
     the_winner = winner(board)
