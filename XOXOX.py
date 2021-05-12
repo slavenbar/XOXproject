@@ -20,19 +20,18 @@ def display_instruct():
         
         Поехали!!!\n"""
     )
-#display_instruct()
 
 #Функция (ask_yes_no) задаёт вопрос,на который нужно ответить да или нет
 def ask_yes_no(question):
     """Отвечать надо - да или нет"""
     response = None
-    while response not in("y", "n"):
+    while response not in ("y", "n"):
         response = input(question).lower()
     return response
 
 #Фунция (ask_number) запрашивает число с диапазона
 def ask_number(question,low,high):
-    """Просит ввести число из диапазона"""
+    """Просит ввести число из диапазона от 0 до 8"""
     response = None
     while response not in range(low, high):
         response = int(input(question))
@@ -81,9 +80,9 @@ def legal_moves(board):
 #Функция определяет победителя
 def winner(board):
     """Определяет победителя в игре"""
-    WEYS_TO_WIN = ((1,2,3),(3,4,5),(6,7,8),
-                   (0,3,6),(1,4,7),(2,5,8),
-                   (0,4,8),(2,4,6))
+    WEYS_TO_WIN = ((1, 2, 3), (3, 4, 5), (6, 7, 8),
+                   (0, 3, 6), (1, 4, 7), (2, 5, 8),
+                   (0, 4, 8), (2, 4, 6))
     for row in WEYS_TO_WIN:
         if board[row[0]] == board[row[1]] == board[row[2]] !=EMPTY:
             winner = board[row[0]]
@@ -93,46 +92,39 @@ def winner(board):
     return None
 
 #функция принимает доску и тип фишек игрока-человека
-def human_move(board,human):
+def human_move(board, human):
     """Получает ход человека"""
     legal = legal_moves(board)
     move = None
     while move not in legal:
-        move = ask_number("Твой ход-выбери одну из клеток", O, NUM_SQUARES)
+        move = ask_number("Твой ход-выбери одну из клеток: ", 0, NUM_SQUARES)
         if move not in legal:
             print("Клетка занята...выбери другую!\n")
-            return move
+    print("Супер!")
+    return move
 
 #Функция принимает доску и тип фишек компьютера
 def computer_move(board, computer, human):
     """Ход компьютера"""
-    #Создадим рабочую копию доски
     board = board[:]
-    #Поля от лучшего к худшему
-    BEST_MOVES = (4,0,2,6,8,1,3,5,7)
-    print("Я выберу поле номер", end=" ")
-
-    #Создаём список доступных ходов
+    BEST_MOVES = (4, 0, 2, 6, 8, 1, 3, 5, 7)
+    print("Мой ход", end=" ")
     for move in legal_moves(board):
         board[move] = computer
-        #Если победит компьютер выберем этот ход
         if winner(board) == computer:
             print(move)
             return move
         board[move] = EMPTY
-
-    for move in legal_moves(board):
-        board[move] = human
-        #Если победит компьютер выберем этот ход
+    for move2 in legal_moves(board):
+        board[move2] = human
         if winner(board) == human:
-            print(move)
-            return move
-        board[move] = EMPTY
-    #Если никто не может победить-выберем лучшее поле
-    for move in BEST_MOVES:
-        if move in legal_moves(board):
-            print(move)
-            return move
+            print(move2)
+            return move2
+        board[move2] = EMPTY
+    for move3 in BEST_MOVES:
+        if move3 in legal_moves(board):
+            print(move3)
+            return move3
 
 #Функция принимает тип фишки,который был сделан последний
 def next_turn(turn):
@@ -159,7 +151,7 @@ def congrat_winner(the_winner, computer, human):
 #Запуск программы
 def main():
     display_instruct()
-    computer,human = pieces()
+    computer, human = pieces()
     turn = X
     board = new_board()
     display_board(board)
