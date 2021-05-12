@@ -1,3 +1,4 @@
+import time
 #Крестики-Нолики
 X = "X"
 O = "0"
@@ -128,6 +129,7 @@ def computer_move(board, computer, human):
 
 #Функция принимает тип фишки,который был сделан последний
 def next_turn(turn):
+    time.sleep(1)
     """Осуществляет переход хода"""
     if turn == X:
         return O
